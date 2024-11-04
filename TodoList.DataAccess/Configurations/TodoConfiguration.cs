@@ -12,7 +12,7 @@ public class TodoConfiguration : IEntityTypeConfiguration<Todo>
 
         builder.HasOne(todo => todo.Category)
             .WithMany(category => category.Todos)
-            .HasForeignKey(todo => todo.Category)
+            .HasForeignKey(todo => todo.CategoryId)
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(todo => todo.User)

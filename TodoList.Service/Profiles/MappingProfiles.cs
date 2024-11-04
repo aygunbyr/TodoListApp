@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TodoList.Models.Dtos.Categories.Requests;
+using TodoList.Models.Dtos.Categories.Responses;
 using TodoList.Models.Dtos.Todos.Requests;
 using TodoList.Models.Dtos.Todos.Responses;
 using TodoList.Models.Entities;
@@ -13,9 +14,13 @@ public class MappingProfiles : Profile
         CreateMap<CreateCategoryRequest, Category>();
         CreateMap<UpdateCategoryRequest, Category>();
         CreateMap<Category, GetCategoryResponse>();
+        CreateMap<Category, CreateCategoryResponse>();
+        CreateMap<Category, UpdateCategoryResponse>();
 
         CreateMap<CreateTodoRequest, Todo>();
         CreateMap<UpdateTodoRequest, Todo>();
         CreateMap<Todo, GetTodoResponse>();
+        CreateMap<Todo, CreateTodoResponse>();
+        CreateMap<Todo, UpdateTodoResponse>();
     }
 }

@@ -172,6 +172,32 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7052/api/Categories?id=4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7052",
+							"path": [
+								"api",
+								"Categories"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

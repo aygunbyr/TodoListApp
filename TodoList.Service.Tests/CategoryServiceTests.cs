@@ -55,7 +55,7 @@ public class CategoryServiceTests
     }
 
     [Test]
-    public void GetById_WhenTodoIsPresent_ReturnsSuccess()
+    public void GetById_WhenCategoryIsPresent_ReturnsSuccess()
     {
         int id = 1;
         Category category = new Category()

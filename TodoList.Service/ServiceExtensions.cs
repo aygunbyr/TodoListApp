@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using TodoList.Service.Abstracts;
 using TodoList.Service.Concretes;
-using TodoList.Service.Profiles;
 using TodoList.Service.Rules;
 
 namespace TodoList.Service;
@@ -14,7 +13,7 @@ public static class ServiceExtensions
 {
     public static IServiceCollection AddServiceExtensions(this IServiceCollection services)
     {
-        services.AddAutoMapper(typeof(MappingProfiles));
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IUserService, UserService>();

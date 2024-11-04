@@ -1,23 +1,14 @@
 ﻿using AutoMapper;
-using System.Diagnostics.Metrics;
-using TodoList.Models.Dtos.Categories.Requests;
-using TodoList.Models.Dtos.Categories.Responses;
 using TodoList.Models.Dtos.Todos.Requests;
 using TodoList.Models.Dtos.Todos.Responses;
 using TodoList.Models.Entities;
 
 namespace TodoList.Service.Profiles;
 
-public class MappingProfiles : Profile
+public class TodoMappingProfile : Profile
 {
-    public MappingProfiles()
+    public TodoMappingProfile()
     {
-        CreateMap<CreateCategoryRequest, Category>();
-        CreateMap<UpdateCategoryRequest, Category>();
-        CreateMap<Category, GetCategoryResponse>();
-        CreateMap<Category, CreateCategoryResponse>();
-        CreateMap<Category, UpdateCategoryResponse>();
-
         CreateMap<CreateTodoRequest, Todo>();
         CreateMap<UpdateTodoRequest, Todo>();
         CreateMap<Todo, GetTodoResponse>()

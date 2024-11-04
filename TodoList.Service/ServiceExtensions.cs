@@ -1,5 +1,8 @@
 ﻿using BlogSite.Service.Concretes;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 using TodoList.Service.Abstracts;
 using TodoList.Service.Concretes;
 using TodoList.Service.Profiles;
@@ -20,6 +23,9 @@ public static class ServiceExtensions
         services.AddScoped<RoleService>();
         services.AddScoped<CategoryBusinessRules>();
         services.AddScoped<TodoBusinessRules>();
+
+        services.AddFluentValidationAutoValidation();
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         return services;
     }

@@ -19,5 +19,8 @@ public class TodoConfiguration : IEntityTypeConfiguration<Todo>
             .WithMany(user => user.Todos)
             .HasForeignKey(todo => todo.UserId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder.Navigation(x => x.Category).AutoInclude();
+        builder.Navigation(x => x.User).AutoInclude();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Diagnostics.Metrics;
 using TodoList.Models.Dtos.Categories.Requests;
 using TodoList.Models.Dtos.Categories.Responses;
 using TodoList.Models.Dtos.Todos.Requests;
@@ -19,7 +20,11 @@ public class MappingProfiles : Profile
 
         CreateMap<CreateTodoRequest, Todo>();
         CreateMap<UpdateTodoRequest, Todo>();
-        CreateMap<Todo, GetTodoResponse>();
+        CreateMap<Todo, GetTodoResponse>()
+            .ForMember(response => response.UserName,
+                       memberOptions => memberOptions.MapFrom(todo => todo.User.UserName))
+            .ForMember(response => response.CategoryName,
+                       memberOptions => memberOptions.MapFrom(todo => todo.Category.Name));
         CreateMap<Todo, CreateTodoResponse>();
         CreateMap<Todo, UpdateTodoResponse>();
     }

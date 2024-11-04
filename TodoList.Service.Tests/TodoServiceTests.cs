@@ -4,6 +4,7 @@ using TodoList.DataAccess.Abstracts;
 using TodoList.Models.Dtos.Todos.Requests;
 using TodoList.Models.Dtos.Todos.Responses;
 using TodoList.Models.Entities;
+using TodoList.Service.Abstracts;
 using TodoList.Service.Concretes;
 using TodoList.Service.Rules;
 
@@ -94,19 +95,17 @@ public class TodoServiceTests
         };
 
         GetTodoResponse response = new GetTodoResponse(
-            Id: Guid.NewGuid(),
-            Title: todo.Title,
-            Description: todo.Description,
-            StartDate: todo.StartDate,
-            EndDate: todo.EndDate,
-            CreatedDate: todo.CreatedDate,
-            UpdatedDate: todo.UpdatedDate,
-            Priority: (int) todo.Priority,
-            CategoryId: todo.CategoryId,
-            Completed: todo.Completed,
-            Category: null,
-            UserId: todo.UserId,
-            User: null
+            id: todo.Id,
+            title: todo.Title,
+            description: todo.Description,
+            startDate: todo.StartDate,
+            endDate: todo.EndDate,
+            createdDate: todo.CreatedDate,
+            updatedDate: todo.UpdatedDate,
+            priority: (int) todo.Priority,
+            categoryName: "someCategoryName",
+            completed: todo.Completed,
+            userName: "someUsername"
             );
 
         _mockRepository.Setup(x => x.GetByIdAsync(id)).ReturnsAsync(todo);
@@ -117,6 +116,25 @@ public class TodoServiceTests
 
         Assert.AreEqual(response, result.Data);
         Assert.IsTrue(result.Success);
+    }
+
+    [Test]
+    public void GetAll_ReturnsSuccess()
+    {
+        // Arrange
+        List<Todo> todos = new List<Todo>();
+        List<GetTodoResponse> response = new();
+        _mockRepository.Setup(x => x.GetAllAsync()).Returns(Task.FromResult(todos));
+        _mockMapper.Setup(x => x.Map<List<GetTodoResponse>>(todos)).Returns(response);
+
+        // Act
+        var result = _todoService.GetAllAsync().Result;
+
+        // Assert
+        Assert.IsTrue(result.Success);
+        Assert.AreEqual(response, result.Data);
+        Assert.AreEqual(200, result.StatusCode);
+        Assert.AreEqual(string.Empty, result.Message);
     }
 
 }

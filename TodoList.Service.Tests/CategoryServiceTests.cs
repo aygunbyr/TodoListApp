@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Exceptions;
 using Moq;
 using TodoList.DataAccess.Abstracts;
 using TodoList.Models.Dtos.Categories.Requests;
@@ -74,6 +75,25 @@ public class CategoryServiceTests
 
         Assert.AreEqual(response, result.Data);
         Assert.IsTrue(result.Success);
+    }
+
+    [Test]
+    public void GetAll_ReturnsSuccess()
+    {
+        // Arrange
+        List<Category> categories = new List<Category>();
+        List<GetCategoryResponse> response = new();
+        _mockRepository.Setup(x => x.GetAllAsync()).Returns(Task.FromResult(categories));
+        _mockMapper.Setup(x => x.Map<List<GetCategoryResponse>>(categories)).Returns(response);
+
+        // Act
+        var result = _categoryService.GetAllAsync().Result;
+
+        // Assert
+        Assert.IsTrue(result.Success);
+        Assert.AreEqual(response, result.Data);
+        Assert.AreEqual(200, result.StatusCode);
+        Assert.AreEqual(string.Empty, result.Message);
     }
 
 }

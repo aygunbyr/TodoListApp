@@ -58,6 +58,41 @@ public class TodoService(ITodoRepository todoRepository, IMapper mapper, TodoBus
         };
     }
 
+    public async Task<ReturnModel<List<GetTodoResponse>>> GetTodosByFilterText(string filterText)
+    {
+        string filterTextLowerCase = filterText.ToLower();
+        List<Todo> todos = await todoRepository.WhereAsync(todo => 
+                todo.Title.ToLower().Contains(filterTextLowerCase) || 
+                todo.Description.ToLower().Contains(filterTextLowerCase));
+        List<GetTodoResponse> response = mapper.Map<List<GetTodoResponse>>(todos);
+
+        return new ReturnModel<List<GetTodoResponse>>
+        {
+            Data = response,
+            Message = string.Empty,
+            StatusCode = 200,
+            Success = true
+        };
+    }
+
+    public async Task<ReturnModel<List<GetTodoResponse>>> GetUsersTodosByFilterText(string filterText, string userId)
+    {
+        string filterTextLowerCase = filterText.ToLower();
+        List<Todo> todos = await todoRepository.WhereAsync(todo =>
+                (todo.Title.ToLower().Contains(filterTextLowerCase) ||
+                todo.Description.ToLower().Contains(filterTextLowerCase)
+                && todo.UserId == userId));
+        List<GetTodoResponse> response = mapper.Map<List<GetTodoResponse>>(todos);
+
+        return new ReturnModel<List<GetTodoResponse>>
+        {
+            Data = response,
+            Message = string.Empty,
+            StatusCode = 200,
+            Success = true
+        };
+    }
+
     public async Task<ReturnModel<List<GetTodoResponse>>> GetTodosByCategoryIdAsync(int categoryId)
     {
         List<Todo> todos = await todoRepository.WhereAsync(todo => todo.CategoryId.Equals(categoryId));

@@ -13,4 +13,6 @@ public interface ITodoService
     Task<ReturnModel<GetTodoResponse?>> GetByIdAsync(Guid id);
     Task<ReturnModel<GetTodoResponse>> RemoveAsync(Guid id);
     Task<ReturnModel<UpdateTodoResponse>> UpdateAsync(UpdateTodoRequest request);
+    Task<ReturnModel<List<GetTodoResponse>>> GetTodosByFilterText(string filterText);
+    Task<ReturnModel<List<GetTodoResponse>>> GetUsersTodosByFilterText(string filterText, string userId);
 }

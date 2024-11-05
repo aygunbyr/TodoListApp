@@ -28,6 +28,23 @@ public class TodosController(ITodoService todoService) : CustomBaseController
         return Ok(result);
     }
 
+    [HttpGet("currentUserFiltered/{filterText}")]
+    [Authorize]
+    public async Task<IActionResult> GetCurrentUserFilteredTodos(string filterText)
+    {
+        string userId = GetUserId();
+        ReturnModel<List<GetTodoResponse>> result = await todoService.GetUsersTodosByFilterText(filterText, userId);
+        return Ok(result);
+    }
+
+    [HttpGet("filter/{filterText}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetFilteredTodos(string filterText)
+    {
+        ReturnModel<List<GetTodoResponse>> result = await todoService.GetTodosByFilterText(filterText);
+        return Ok(result);
+    }
+
     
     [HttpGet("user/{userId}")]
     [Authorize(Roles = "Admin")]

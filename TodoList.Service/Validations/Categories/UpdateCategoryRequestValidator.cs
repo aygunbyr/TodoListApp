@@ -7,7 +7,7 @@ public class UpdateCategoryRequestValidator : AbstractValidator<UpdateCategoryRe
 {
     public UpdateCategoryRequestValidator()
     {
-        RuleFor(category => category.Id).NotEmpty().WithMessage("Kategori Id gereklidir.");
+        RuleFor(category => category.Id).GreaterThan(0).WithMessage("Kategori Id gereklidir.");
         RuleFor(category => category.Name).NotEmpty().WithMessage("Kategori ismi boş olamaz.");
     }
 }
